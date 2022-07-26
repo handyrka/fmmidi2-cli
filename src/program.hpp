@@ -3,7 +3,7 @@
  * Copyright (c) 2022 Roman Savchenko 
  */
 #pragma once
-#include "midisynth.hpp"
+#include "fm/midisynth.hpp"
 
 static inline void load_program(midisynth::fm_note_factory* note_factory) 
 {

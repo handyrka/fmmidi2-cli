@@ -5,9 +5,10 @@
 #pragma once
 #include <ao/ao.h>
 #include <vector>
-#include "midisynth.hpp"
-#include "sequencer.hpp"
-#include "wavio.hpp"
+#include "fm/midisynth.hpp"
+#include "fm/sequencer.hpp"
+#include "out/out.hpp"
+#include "out/wavout.hpp"
 
 class fmOut : public midisequencer::output
 {
@@ -22,6 +23,8 @@ class fmOut : public midisequencer::output
 class midi_player
 {
 public:
+    file_output* fileout;
+    
     bool init(int playback_rate);
     bool play();
     void close();
@@ -37,7 +40,6 @@ private:
     midisequencer::sequencer *seq;
     ao_device* aoDevice;
     int aoDriver = 0;
-    wav_writer wav;
     midisynth::system_mode_t mode = midisynth::system_mode_gm;
     
     //Playback

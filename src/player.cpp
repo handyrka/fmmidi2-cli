@@ -3,9 +3,7 @@
  * Copyright (c) 2022 Roman Savchenko 
  */ 
 #include "player.hpp"
-#include "midisynth.hpp"
 #include "program.hpp"
-#include "sequencer.hpp"
 #include <ao/ao.h>
 #include <cassert>
 #include <cerrno>
@@ -135,9 +133,19 @@ bool midi_player::play()
 		fclose(midi);
 		return false;
 	}
-	seq->rewind();
 
+	seq->rewind();
 	fclose(midi);
+
+	//If writing to file, open it
+	if(outToFile)
+	{
+		if(!fileout->open(outFilename, rate))
+		{
+			std::cerr << "[midi_player::play()]: Failed to open output file." << std::endl;
+			return false;
+		}
+	}
 
 	//Show song information
 	printf("\n[%s] (%lu/%lu)\nCopyright: %s\n",filename.c_str(), playlistIndex + 1, playlist.size(), seq->get_copyright().c_str());
@@ -167,10 +175,10 @@ play:
 			ui_update();
 	}
 
-	//Write to file when done
+	//Close file when done
 	if(outToFile)
 	{
-		wav.save(outFilename.c_str(), rate);
+		fileout->close();
 		return true;
 	}
 
@@ -261,7 +269,7 @@ void midi_player::audio_play_chunk(short* chunk, int size)
 
 	if(outToFile)
 	{
-		wav.write((char*)chunk, size);
+		fileout->write((char*)chunk, size);
 		return;
 	}
 
