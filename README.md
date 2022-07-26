@@ -4,7 +4,7 @@ fmmidi2 is Yamaha YM2608 FM synthesizer emulator. It is based on fmmidi by yuno 
 # Changes compared to fmmidi
 - General code cleanup
 - More intuitive to use
-- Ability to export into mulitple file formats (WAV, Ogg Vorbis)
+- Output to files (WAV, Ogg Vorbis)
 - Bugfixes
 
 # Dependencies
