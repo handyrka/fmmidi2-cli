@@ -33,7 +33,7 @@ public:
 
 private:
     //Synth components
-    fmOut *out = NULL;
+    fmOut *out = nullptr;
     midisequencer::sequencer *seq;
     ao_device* aoDevice;
     int aoDriver = 0;
@@ -56,6 +56,8 @@ private:
 
     //Chunks
     short* sampleOut, *blankOut;
+
+    void ui_update();
 
     void audio_init();
     void audio_play_chunk(short* chunk, int size);

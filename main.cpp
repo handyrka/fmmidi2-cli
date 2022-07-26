@@ -9,7 +9,7 @@
 #include <cstdlib>
 #include <iostream>
 
-#define FMMIDI_VERSION "2.0.0"
+#define FMMIDI_VERSION "2.0.1"
 #define assert_and_help(x) if(!(x)) { show_help(); exit(1); }
 
 void show_help()
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	for(int i = 1; i < argc; i++)
 	{
 		std::string arg (argv[i]);
-		int index = arg.find("-");
+		auto index = arg.find("-");
 		
 		if(index != std::string::npos)
 		{
@@ -96,9 +96,6 @@ int main(int argc, char *argv[])
 		}
 		else player.add(argv[i]);
 	}
-
-	//Add empty line for better look
-	std::cout << std::endl;
 
 	if(!player.init(playbackRate))
 		return 1;

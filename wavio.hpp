@@ -9,12 +9,11 @@ class wav_writer
 {
 public:
     wav_writer();
-    ~wav_writer();
     void clear();
     void write(char* chunk, int size);
     bool save(std::string filename, int sampleRate);
 
 private:
-    char* data;
+    char* data = nullptr;
     unsigned int length;
 };

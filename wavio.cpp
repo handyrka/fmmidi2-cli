@@ -38,23 +38,18 @@ wav_writer::wav_writer()
     clear();
 }
 
-wav_writer::~wav_writer()
-{
-    std::free(data);
-}
-
 void wav_writer::clear()
 {
-    if(data != NULL)
-        std::free(data);
-    data = (char*)std::malloc(1);
+    if(data != nullptr)
+        free(data);
+    data = (char*)malloc(1);
     length = 0;
 }
 
 void wav_writer::write(char *chunk, int size)
 {
     data = (char*)realloc((void*)data, length + size);
-    std::memcpy(data + length, chunk, size);
+    memcpy(data + length, chunk, size);
     length += size;   
 }
 
