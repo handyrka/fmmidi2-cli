@@ -74,7 +74,7 @@ class fmOutSynth : public fmOut
 
 bool midi_player::init(int playback_rate)
 {	
-    audio_init();
+	audio_init();
 
 	//Creating new Sequencer and Output FM Synth
 	out = new fmOutSynth();
@@ -107,11 +107,11 @@ bool midi_player::init(int playback_rate)
 	smpformat.matrix = NULL;
 
 	aoDevice = ao_open_live(aoDriver, &smpformat, NULL);
-    if(!aoDevice)
-    {
-        std::cerr << "[midi_player::init()]: Failed to initialize live audio driver: " << std::strerror(errno) << std::endl;
-        return false;
-    }
+	if(!aoDevice)
+	{
+	    std::cerr << "[midi_player::init()]: Failed to initialize live audio driver: " << std::strerror(errno) << std::endl;
+	    return false;
+	}
 
 	return true;
 }
@@ -231,7 +231,7 @@ void midi_player::ui_update()
 	//Draw progress bar
 	for(int i = 0; i < 15; i++)
 		if(i < (time / totalTime) * 15)
-			printf("█");
+			printf("#");
 		else
 		 	printf(".");
 
@@ -257,7 +257,7 @@ void midi_player::audio_close()
 
 void midi_player::audio_play_chunk(short* chunk, int size)
 {
-    assert(size >= 0);
+	assert(size >= 0);
 
 	if(outToFile)
 	{
