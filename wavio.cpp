@@ -1,3 +1,7 @@
+/* Copyright (c) 2003-2005 yuno
+ * Copyright (c) 2015-2018 supercatexpert 
+ * Copyright (c) 2022 Roman Savchenko 
+ */ 
 #include "wavio.hpp"
 #include <cstddef>
 #include <cstdlib>

@@ -1,3 +1,7 @@
+/* Copyright (c) 2003-2005 yuno
+ * Copyright (c) 2015-2018 supercatexpert 
+ * Copyright (c) 2022 Roman Savchenko 
+ */ 
 #include "player.hpp"
 #include "midisynth.hpp"
 #include "program.hpp"
@@ -8,8 +12,6 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
-
-int midiEventFd = 0;
 
 class fmOutSynth : public fmOut
 {
@@ -25,7 +27,7 @@ class fmOutSynth : public fmOut
 			synth = new midisynth::synthesizer(note_factory);
 			
 			//Loading programs from header
-            load_program(note_factory);
+        	load_program(note_factory);
 		}
 	
 		void midi_message(int port, uint_least32_t message)
@@ -104,7 +106,7 @@ bool midi_player::init(int playback_rate)
     audio_init();
 
 	//Creating new Sequencer and Output FM Synth
-    out = new fmOutSynth();
+	out = new fmOutSynth();
 	seq = new midisequencer::sequencer();
 
 	//Allocating chunks
@@ -120,7 +122,7 @@ bool midi_player::init(int playback_rate)
 
 	if(aoDriver == -1)
 	{
-        std::cerr << "[midi_player::init()]: Failed to initialize audio driver" << std::endl;
+	    std::cerr << "[midi_player::init()]: Failed to initialize audio driver" << std::endl;
 		return false;
 	}
 	
@@ -143,20 +145,20 @@ bool midi_player::init(int playback_rate)
 
 bool midi_player::play()
 {
-    std::string filename = playlist.at(playlistIndex);
-    FILE *midi = fopen(filename.c_str(), "rb");
+	std::string filename = playlist.at(playlistIndex);
+	FILE *midi = fopen(filename.c_str(), "rb");
 	
 	//If file is failed to open
 	if(!midi)
 	{
-        std::cerr << "midi_player::play(): Failed to open midi file." << std::endl;
+    	std::cerr << "midi_player::play(): Failed to open midi file." << std::endl;
 		return false;
 	}
 
 	//Trying to load a midi sequence
 	if(!seq->load(midi))
 	{
-        std::cerr << "midi_player::play(): Failed to load midi sequence." << std::endl;	
+    	std::cerr << "midi_player::play(): Failed to load midi sequence." << std::endl;	
 		fclose(midi);
 		return false;
 	}
