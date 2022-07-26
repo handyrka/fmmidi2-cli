@@ -7,12 +7,10 @@ fmmidi2 is Yamaha YM2608 FM synthesizer emulator. It is based on fmmidi by yuno 
 - Ability to export into mulitple file formats (WAV, Ogg Vorbis)
 - Bugfixes
 
-# Compiling
-This app is tested on Windows and Linux.
-
 # Dependencies
 `libao libvorbis libvorbisenc libogg`
 
+# Compiling
 ## Windows
 - Install MSYS2 (https://www.msys2.org/)
 - Run following command:
@@ -26,6 +24,9 @@ This app is tested on Windows and Linux.
 - Install `libao libvorbis libogg` from your distribution's package manager (ex. libao on Arch, libao-dev on Ubuntu)
 - Install g++ and make
 - Run `make build`
+
+## Other platforms
+While not tested yet, it should run just fine.
 
 # License 
 See license.txt.
