@@ -35,9 +35,11 @@ bool wav_output::open(std::string filename, int sampleRate)
     if(!stream.is_open())
         return false;
 
-    for(uint64_t i = 0; i < sizeof(wav_header); i++)
-        stream << 0; //Filling with nothing
-
+    wav_header header;
+    header.samplesPerSecond = sampleRate;
+    header.bytesPerSec = sampleRate * 4;
+    stream.write(reinterpret_cast<char *>(&header), sizeof(header));
+    
     this->sampleRate = sampleRate;
     return true;
 }
@@ -49,16 +51,15 @@ void wav_output::write(char* chunk, int size)
 
 void wav_output::close()
 {
-    wav_header header;
-    header.chunkSize = length + sizeof(wav_header) - 8;
-    header.subchunk2Size = length;
-    header.samplesPerSecond = sampleRate;
-    header.bytesPerSec = sampleRate * 4;
-
-    //Seek at the beggining
-    stream.seekg(0, std::ios_base::beg);
-
+    //Set new chunk size
+    stream.seekp(4, std::ios_base::beg);
+    stream << (uint32_t)(length + sizeof(wav_header) - 8);
+    
+    //Set new sub chunk 2 size
+    stream.seekp(sizeof(wav_header) - 4, std::ios_base::beg);
+    stream << (uint32_t)(length + sizeof(wav_header) - 44);
+    
+    
     //Write new header
-    stream.write(reinterpret_cast<char *>(&header), sizeof(header));
     stream.close();
 }

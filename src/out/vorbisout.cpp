@@ -4,6 +4,7 @@
  */ 
 #include "vorbisout.hpp"
 #include <cstdint>
+#include <ctime>
 
 bool vorbis_output::open(std::string filename, int sampleRate)
 {
